@@ -26,7 +26,7 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div>
-        <button>Logout</button>
+        <button>asda</button>
       </div>
     </aside>
   );
