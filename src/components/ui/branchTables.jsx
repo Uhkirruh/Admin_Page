@@ -53,7 +53,7 @@ export default function BranchTables() {
 
       <tbody className="divide-y divide-gray-100">
         {data.map((row) => (
-          <tr key={row.id} className="hover:bg-gray-50">
+          <tr key={row.id} className="hover:bg-gray-300">
             {headers.map((h) => (
               <td key={h.id} className="px-4 py-3">
                 {h.key === "db_password" ? "••••••••" : row[h.key]}
