@@ -7,7 +7,7 @@ import App from "./App.jsx";
 import LoginPage from "./components/loginPage.jsx";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import AdminStorePage from "./components/storeAdminPage.jsx";
-import Testing from "./components/ui/testing.jsx";
+import Testing from "./components/testing.jsx";
 
 import BranchAccounts from "./pages/branchAccounts";
 import Configuration from "./pages/configuration";
@@ -21,7 +21,8 @@ createRoot(document.getElementById("root")).render(
         {/* <AdminStorePage /> */}
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Testing />}>
+        {/* <Route path="/dashboard" element={<Testing />}> */}
+        <Route path="/dashboard" element={<AdminStorePage />}>
           <Route
             index
             element={
