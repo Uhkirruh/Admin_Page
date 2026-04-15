@@ -29,3 +29,11 @@ export function CardFooter({ children, className = "" }) {
     <p className="text-sm text-slate-400 flex justify-center">{children}</p>
   );
 }
+
+export function OpeningCardBranch({ children, className = "" }) {
+  return (
+    <div className="bg-mist-100 h-full min-h-full p-4 flex flex-col gap-4">
+      {children}
+    </div>
+  );
+}
