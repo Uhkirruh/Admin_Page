@@ -1,54 +1,84 @@
 import { useState } from "react";
-import { NavCardHeader, NavCardSideBar } from "./ui/navCard";
+import { GitBranch, Settings } from "lucide-react";
+import logo from "../assets/logoLCC.png";
+import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-export default function AdminStorePage() {
-  const [activePage, setActivePage] = useState("dashboard");
-
+export default function Testing() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navItems = [
-    { id: "branch accounts", label: "Branch Accounts" },
-    { id: "configuration", label: "Configuration" },
+    {
+      name: "Branch Accounts",
+      icon: GitBranch,
+      path: "/dashboard/branch-accounts",
+    },
+    { name: "Configuration", icon: Settings, path: "/dashboard/configuration" },
   ];
-
   return (
-    <div className="flex h-screen font-sans">
-      {/* Sidebar */}
-      <NavCardSideBar>
-        <NavCardHeader>
-          <h2 className="text-base font-medium m-0">Admin Panel</h2>
-          <p className="text-[11px] text-gray-500 mt-1 mb-0">ENTERPRISE</p>
-        </NavCardHeader>
+    <div className=" flex bg-gray-100 h-screen">
+      {/* //Sidebar */}
+      <div
+        className={` flex flex-col bg-[#293041] w-64 h-screen shadow fixed transition-transform
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-64"} lg:translate-x-0 lg:static`}
+      >
+        {/* Header of the sidebar */}
+        <div className="p-4 flex justify-between border-b">
+          {/* IMAGE */}
 
-        {/* Nav items */}
-        <nav>
-          {navItems.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => setActivePage(item.id)}
-              className={`px-6 py-2.5 cursor-pointer text-sm border-l-[3px] ${
-                activePage === item.id
-                  ? "text-white bg-white/[0.08] border-[#4f7ef8]"
-                  : "text-gray-400 bg-transparent border-transparent"
-              }`}
-            >
-              {item.label}
-            </div>
-          ))}
-        </nav>
-
-        {/* Bottom items */}
-
-        <div className="mt-auto">
-          <div className="px-6 py-2.5 cursor-pointer text-sm text-gray-400 hover:text-white">
-            Logout
-          </div>
+          <img src={logo} alt="Logo" className="w-15 h-15 object-contain" />
+          <button className="lg:hidden" onClick={() => setSidebarOpen(false)}>
+            X
+          </button>
         </div>
-      </NavCardSideBar>
 
-      {/* Main content */}
-      <main style={{ flex: 1, background: "#f3f4f6", padding: "24px" }}>
-        <h1 style={{ fontSize: "20px" }}>
-          {activePage.charAt(0).toUpperCase() + activePage.slice(1)}
-        </h1>
+        {/* side Navigation bar */}
+        <div className="p-4 space-y-2">
+          {navItems.map((item) => {
+            const Icon = item.icon; //this is for react to treat it as  a component
+            return (
+              <Link
+                to={item.path}
+                key={item.name}
+                className="flex items-center gap-2 p-2 hover:bg-gray-600"
+              >
+                <Icon size={20} className="text-white" />
+                <span className="text-xl text-white">{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Logout pinned to bottom */}
+        <div className="mt-auto border-t border-gray-600 p-4">
+          <button className="text-sm text-gray-400 hover:text-white cursor-pointer">
+            Logout
+          </button>
+        </div>
+      </div>
+
+      {/* // Main content */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <header className="bg-white flex p-4 justify-start gap-6">
+          <button
+            className="p-2 text-xl font-bold lg:hidden"
+            onClick={() => setSidebarOpen(true)}
+          >
+            ☰
+          </button>
+          <h1 className="text-xl font-bold">Store Admin Portal</h1>
+          <input
+            className="w-60 rounded px-3 focus:outline-none focus:ring-2 focus:ring-blue-300 justify-start items-start h-10 border"
+            type="search"
+            placeholder=" Searching for anything?"
+            id="search"
+          />
+
+          <div className="ml-auto flex-shrink-0 bg-gray-500 w-10 h-10 rounded-full"></div>
+        </header>
+
+        <div className="overflow-y-auto flex-1">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
